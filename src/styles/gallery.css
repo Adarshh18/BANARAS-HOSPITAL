@@ -1,0 +1,147 @@
+/* =========================================================================
+   BANARAS HOSPITAL — GALLERY STYLESHEET
+   Shares design tokens with style.css (loaded first on this page).
+   ========================================================================= */
+
+/* Gallery page shares the site-wide fixed .header, .section-photobg and
+   .page-top helpers (see style.css) so its hero banner looks and behaves
+   exactly like About / Services / Doctors / Location / Contact. Below the
+   banner, the page returns to the site's normal white/ivory background —
+   the same paper tone every other page's content sits on. */
+body { background: var(--color-bg); }
+
+/* Gallery hero: tighten the space below the fixed header and above the
+   grid — the global .page-top value is generous because most inner pages
+   only have this one section; the gallery has a second section right
+   below it, so this hero needs less top and bottom air. */
+.gallery-hero.page-top {
+  padding-top: 7.5rem;
+  padding-bottom: 2.2rem;
+}
+
+@media (max-width: 992px) {
+  .gallery-hero.page-top { padding-top: 6.5rem; padding-bottom: 2rem; }
+}
+@media (max-width: 768px) {
+  .gallery-hero.page-top { padding-top: 6rem; padding-bottom: 1.8rem; }
+}
+
+.gallery-section { padding: 1.5rem 0 5rem 0; background: var(--color-bg); }
+
+/* Masonry grid */
+.gallery-grid { margin: 0 auto; }
+
+.gallery-item {
+  width: calc(33.333% - 20px);
+  margin-bottom: 20px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  position: relative;
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out),
+              box-shadow 0.4s ease;
+}
+
+.gallery-item.in-view { opacity: 1; transform: translateY(0) scale(1); }
+
+.gallery-item:hover { box-shadow: var(--shadow-card-hover); }
+
+.gallery-item .img-frame { overflow: hidden; position: relative; }
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.gallery-item:hover img { transform: scale(1.08); }
+
+.gallery-item .img-frame::after {
+  content: "\f00e";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 1.3rem;
+  background: linear-gradient(180deg, rgba(9,38,36,0) 40%, rgba(9,38,36,0.55) 100%);
+  opacity: 0;
+  transition: opacity var(--dur-fast) ease;
+}
+
+.gallery-item:hover .img-frame::after { opacity: 1; }
+
+@media (max-width: 900px) {
+  .gallery-item { width: calc(50% - 20px); }
+}
+@media (max-width: 600px) {
+  .gallery-item { width: 100%; }
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(9, 20, 18, 0.94);
+  z-index: 3000;
+  display: none;
+  align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity var(--dur-fast) ease;
+}
+.lightbox.active { display: flex; opacity: 1; }
+
+.lightbox-inner {
+  position: relative;
+  max-width: 90vw; max-height: 86vh;
+  transform: scale(0.94);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.lightbox.active .lightbox-inner { transform: scale(1); }
+
+.lightbox-inner img {
+  max-width: 90vw; max-height: 86vh;
+  width: auto; height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+}
+
+.lightbox-close, .lightbox-prev, .lightbox-next {
+  position: fixed;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: #fff;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  transition: all var(--dur-fast) ease;
+}
+.lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+  background: var(--color-warm); color: var(--color-primary-dark); border-color: var(--color-warm);
+}
+
+.lightbox-close { top: 26px; right: 26px; }
+.lightbox-prev { left: 26px; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 26px; top: 50%; transform: translateY(-50%); }
+
+.lightbox-counter {
+  position: fixed;
+  bottom: 26px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.65);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 640px) {
+  .lightbox-prev, .lightbox-next { width: 38px; height: 38px; font-size: 0.95rem; }
+  .lightbox-close { width: 38px; height: 38px; top: 16px; right: 16px; }
+  .lightbox-prev { left: 10px; } .lightbox-next { right: 10px; }
+}
+
+
