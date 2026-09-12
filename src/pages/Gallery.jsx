@@ -3,13 +3,15 @@ import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 import PageMeta from '../components/PageMeta';
 
-const galleryImages = Object.values(
-  import.meta.glob('../assets/images/gallery/gallery*.jpg', { eager: true, import: 'default' })
-).sort((a, b) => {
-  const numA = parseInt(a.match(/gallery(\d+)\.jpg/)?.[1] ?? '0', 10);
-  const numB = parseInt(b.match(/gallery(\d+)\.jpg/)?.[1] ?? '0', 10);
-  return numA - numB;
-});
+const galleryModules = import.meta.glob('../assets/images/gallery/gallery*.jpg', { eager: true, import: 'default' });
+
+const galleryImages = Object.keys(galleryModules)
+  .sort((a, b) => {
+    const numA = parseInt(a.match(/gallery(\d+)\.jpg/)?.[1] ?? '0', 10);
+    const numB = parseInt(b.match(/gallery(\d+)\.jpg/)?.[1] ?? '0', 10);
+    return numA - numB;
+  })
+  .map((key) => galleryModules[key]);
 
 export default function Gallery() {
   const gridRef = useRef(null);
