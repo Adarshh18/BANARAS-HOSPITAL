@@ -4,7 +4,7 @@ A React + Vite + React Router DOM rebuild of the Banaras Hospital marketing webs
  
 ## 📁 Project Structure 
  
-```
+``` 
 banaras-react/
 ├── index.html                 # Vite entry HTML (fonts, favicon, meta)
 ├── public/
