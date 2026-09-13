@@ -2,7 +2,7 @@
  
 A React + Vite + React Router DOM rebuild of the Banaras Hospital marketing website. This is a 1:1 migration from the original static HTML/CSS/JS site — same content, design, layout, images, animations, and functionality, now running as a Vite-powered React SPA.
  
-## 📁 Project Structure 
+## 📁 Project Structure  
  
 ``` 
 banaras-react/
